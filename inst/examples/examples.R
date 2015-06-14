@@ -7,12 +7,20 @@ target <- c("B", "C", "D", "J", "E", "F", "G", "H", "I")
 networkData <- data.frame(src, target)
 simpleNetwork(networkData)
 
-# forceNetwork  
+# forceNetwork 
 data(MisLinks)
 data(MisNodes)
+
+# Create graph
 forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
              Target = "target", Value = "value", NodeID = "name",
              Group = "group", opacity = 0.4)
+
+# Create graph with legend and varying radius
+forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             Nodesize = 'size', radiusCalculation = " Math.sqrt(d.nodesize)+6",
+             Group = "group", opacity = 0.4, legend = T) 
 
 # sankeyNetwork
 library(RCurl)
@@ -25,7 +33,7 @@ EngNodes <- JSONtoDF(jsonStr = Energy, array = "nodes")
 # Plot
 sankeyNetwork(Links = EngLinks, Nodes = EngNodes, Source = "source",
               Target = "target", Value = "value", NodeID = "name",
-              fontsize = 12, nodeWidth = 30)
+              fontSize = 12, nodeWidth = 30)
 
 # treeNetwork
 Flare <- RCurl::getURL("https://gist.githubusercontent.com/mbostock/4063550/raw/a05a94858375bd0ae023f6950a2b13fac5127637/flare.json")

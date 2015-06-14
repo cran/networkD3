@@ -25,7 +25,10 @@
 #' #### Create tree from JSON formatted data
 #' ## Download JSON data
 #' library(RCurl)
-#' Flare <- getURL("http://bit.ly/1uNNAbu")
+#' # Create URL. paste0 used purely to keep within line width.
+#' URL <- paste0("https://raw.githubusercontent.com/christophergandrud/",
+#'               "networkD3/master/JSONdata/flare.json")
+#' Flare <- getURL(URL)
 #'
 #' ## Convert to list format
 #' Flare <- rjson::fromJSON(Flare)
@@ -38,6 +41,7 @@
 #' treeNetwork(as.treeNetwork(hc))
 #'
 #' #### Create tree from a hierarchical R list
+#' For an alternative structure see: http://stackoverflow.com/a/30747323/1705044
 #' CanadaPC <- list(name = "Canada", children = list(list(name = "Newfoundland",
 #'                     children = list(list(name = "St. John's"))),
 #'                list(name = "PEI",
