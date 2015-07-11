@@ -27,6 +27,7 @@
 #' scale for the nodes. See
 #' \url{https://github.com/mbostock/d3/wiki/Ordinal-Scales}.
 #' @param fontSize numeric font size in pixels for the node text labels.
+#' @param fontFamily font family for the node text labels.
 #' @param linkDistance numeric or character string. Either numberic fixed
 #' distance between the links in pixels (actually arbitrary relative to the
 #' diagram's size). Or a JavaScript function, possibly to weight by
@@ -46,8 +47,15 @@
 #' @param opacity numeric value of the proportion opaque you would like the
 #' graph elements to be.
 #' @param zoom logical value to enable (\code{TRUE}) or disable (\code{FALSE})
-#' zooming
+#' zooming.
 #' @param legend logical value to enable node colour legends.
+#' @param bounded logical value to enable (\code{TRUE}) or disable
+#' (\code{FALSE}) the bounding box limiting the graph's extent. See
+#' \url{http://bl.ocks.org/mbostock/1129492}.
+#' @param opacityNoHover numeric value of the opacity proportion for node labels
+#' text when the mouse is not hovering over them.
+#' @param clickAction character string with a JavaScript expression to evaluate
+#' when a node is clicked.
 #'
 #' @examples
 #' #### Tabular data example.
@@ -72,7 +80,7 @@
 #' library(RCurl)
 #' # Create URL. paste0 used purely to keep within line width.
 #' URL <- paste0("https://raw.githubusercontent.com/christophergandrud/",
-#'                "networkD3/master/JSONdata/flare.json")
+#'               "networkD3/master/JSONdata/miserables.json")
 #' MisJson <- getURL(URL)
 #'
 #' MisLinks <- JSONtoDF(jsonStr = MisJson, array = "links")
@@ -87,6 +95,30 @@
 #' forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
 #'              Target = "target", Value = "value", NodeID = "name",
 #'              Group = "group", opacity = 0.4, zoom = TRUE)
+#'
+#'
+#' # Create a bounded graph
+#' forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+#'              Target = "target", Value = "value", NodeID = "name",
+#'              Group = "group", opacity = 0.4, bounded = TRUE)
+#'
+#' # Create graph with node text faintly visible when no hovering
+#' forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+#'              Target = "target", Value = "value", NodeID = "name",
+#'              Group = "group", opacity = 0.4, bounded = TRUE,
+#'              opacityNoHover = TRUE)
+#'
+#'
+#' # Create graph with alert pop-up when a node is clicked.  You're
+#' # unlikely to want to do exactly this, but you might use
+#' # Shiny.onInputChange() to allocate d.XXX to an element of input
+#' # for use in a Shiny app.
+#' MyClickScript <- 'alert("You clicked " + d.name + " which is in row " +
+#'        (d.index + 1) +  " of your original R data frame");'
+#' forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+#'              Target = "target", Value = "value", NodeID = "name",
+#'              Group = "group", opacity = 1, zoom = F, bounded = T,
+#'              clickAction = MyClickScript)
 #' }
 #'
 
@@ -109,6 +141,7 @@ forceNetwork <- function(Links,
                          width = NULL,
                          colourScale = JS("d3.scale.category20()"),
                          fontSize = 7,
+                         fontFamily = "serif",
                          linkDistance = 50,
                          linkWidth = JS("function(d) { return Math.sqrt(d.value); }"),
                          radiusCalculation = JS(" Math.sqrt(d.nodesize)+6"),
@@ -116,7 +149,10 @@ forceNetwork <- function(Links,
                          linkColour = "#666",
                          opacity = 0.6,
                          zoom = FALSE,
-                         legend = FALSE)
+                         legend = FALSE,
+                         bounded = FALSE,
+                         opacityNoHover = 0,
+                         clickAction = NULL)
 {
         # Hack for UI consistency. Think of improving.
         colourScale <- as.character(colourScale)
@@ -138,19 +174,14 @@ forceNetwork <- function(Links,
                 LinksDF <- data.frame(Links[, Source], Links[, Target], Links[, Value])
                 names(LinksDF) <- c("source", "target", "value")
         }
-        if (!missing(Nodesize)) {
-                NodesDF <- data.frame(Nodes[, NodeID], Nodes[, Group],
-                                        Nodes[, Nodesize])
+        if (!missing(Nodesize)){
+                NodesDF <- data.frame(Nodes[, NodeID], Nodes[, Group], Nodes[, Nodesize])
                 names(NodesDF) <- c("name", "group", "nodesize")
-                nodesize = 'true'
-        }
-        else{
+                nodesize = TRUE
+        }else{
                 NodesDF <- data.frame(Nodes[, NodeID], Nodes[, Group])
                 names(NodesDF) <- c("name", "group")
-                nodesize = 'false'
-        }
-        if (legend) {
-                legend = 'true'
+                nodesize = FALSE
         }
 
         # create options
@@ -159,6 +190,7 @@ forceNetwork <- function(Links,
                 Group = Group,
                 colourScale = colourScale,
                 fontSize = fontSize,
+                fontFamily = fontFamily,
                 clickTextSize = fontSize * 2.5,
                 linkDistance = linkDistance,
                 linkWidth = linkWidth,
@@ -168,7 +200,10 @@ forceNetwork <- function(Links,
                 zoom = zoom,
                 legend = legend,
                 nodesize = nodesize,
-                radiusCalculation = radiusCalculation
+                radiusCalculation = radiusCalculation,
+                bounded = bounded,
+                opacityNoHover = opacityNoHover,
+                clickAction = clickAction
         )
 
         # create widget

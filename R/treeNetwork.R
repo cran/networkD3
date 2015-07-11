@@ -6,6 +6,7 @@
 #' @param width numeric width for the network graph's frame area in pixels (if
 #'   \code{NULL} then width is automatically determined based on context)
 #' @param fontSize numeric font size in pixels for the node text labels.
+#' @param fontFamily font family for the node text labels.
 #' @param linkColour character string specifying the colour you want the link
 #' lines to be. Multiple formats supported (e.g. hexadecimal).
 #' @param nodeColour character string specifying the colour you want the node
@@ -39,6 +40,7 @@
 #' #### Create a tree dendrogram from an R hclust object
 #' hc <- hclust(dist(USArrests), "ave")
 #' treeNetwork(as.treeNetwork(hc))
+#' treeNetwork(as.treeNetwork(hc), fontFamily = "cursive")
 #'
 #' #### Create tree from a hierarchical R list
 #' For an alternative structure see: http://stackoverflow.com/a/30747323/1705044
@@ -89,6 +91,7 @@ treeNetwork <- function(
                           height = NULL,
                           width = NULL,
                           fontSize = 10,
+                          fontFamily = "serif",
                           linkColour = "#ccc",
                           nodeColour = "#fff",
                           nodeStroke = "steelblue",
@@ -106,6 +109,7 @@ treeNetwork <- function(
         height = height,
         width = width,
         fontSize = fontSize,
+        fontFamily = fontFamily,
         linkColour = linkColour,
         nodeColour = nodeColour,
         nodeStroke = nodeStroke,
@@ -145,42 +149,42 @@ renderTreeNetwork <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' Convert an R hclust or dendrogram object into a treeNetwork list.
 #'
-#' \code{as.treeNetwork} converts an R hclust or dendrogram object into a list suitable
-#' for use by the \code{treeNetwork} function.
+#' \code{as.treeNetwork} converts an R hclust or dendrogram object into a list
+#' suitable for use by the \code{treeNetwork} function.
 #'
 #' @param d An object of R class \code{hclust} or \code{dendrogram}.
-#' @param root An optional name for the root node. If missing, use the first argument
-#' variable name.
+#' @param root An optional name for the root node. If missing, use the first
+#' argument variable name.
 #'
 #' @details \code{as.treeNetwork} coverts R objects of class \code{hclust} or
-#' \code{dendrogram} into a list suitable for use with the \code{treeNetwork} function.
-#'
+#' \code{dendrogram} into a list suitable for use with the \code{treeNetwork}
+#' function.
 #' @examples
 #' # Create a hierarchical cluster object and display with treeNetwork
 #' ## dontrun
 #' hc <- hclust(dist(USArrests), "ave")
 #' treeNetwork(as.treeNetwork(hc))
 #'
+#' @importFrom stats as.dendrogram
+#'
 #' @export
 
 as.treeNetwork <- function(d, root)
 {
-  if(missing(root)) root <- as.character(match.call()[[2]])
-  if("hclust" %in% class(d)) d <- as.dendrogram(d)
-  if(!("dendrogram" %in% class(d)))
-    stop("d must be a object of class hclust or dendrogram")
-  ul <- function(x, level=1)
-  {
-    if(is.list(x))
-    {
-      return(lapply(x, function(y)
-      {
+    if(missing(root)) root <- as.character(match.call()[[2]])
+    if("hclust" %in% class(d)) d <- as.dendrogram(d)
+    if(!("dendrogram" %in% class(d)))
+        stop("d must be a object of class hclust or dendrogram")
+    ul <- function(x, level = 1) {
+        if(is.list(x)) {
+            return(lapply(x, function(y)
+        {
         name <- ""
-        if(!is.list(y)) name <- attr(y,"label")
-        list(name=name, children=ul(y,level+1))
-      }))
+        if(!is.list(y)) name <- attr(y, "label")
+            list(name=name, children=ul(y, level + 1))
+        }))
     }
-    list(name=attr(x,"label"))
-  }
-  list(name=root,children=ul(d))
+    list(name = attr(x,"label"))
+    }
+    list(name = root, children = ul(d))
 }

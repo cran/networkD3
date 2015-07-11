@@ -11,10 +11,11 @@ specifically for force directed networks
 \usage{
 forceNetwork(Links, Nodes, Source, Target, Value, NodeID, Nodesize, Group,
   height = NULL, width = NULL, colourScale = JS("d3.scale.category20()"),
-  fontSize = 7, linkDistance = 50,
+  fontSize = 7, fontFamily = "serif", linkDistance = 50,
   linkWidth = JS("function(d) { return Math.sqrt(d.value); }"),
   radiusCalculation = JS(" Math.sqrt(d.nodesize)+6"), charge = -120,
-  linkColour = "#666", opacity = 0.6, zoom = FALSE, legend = FALSE)
+  linkColour = "#666", opacity = 0.6, zoom = FALSE, legend = FALSE,
+  bounded = FALSE, opacityNoHover = 0, clickAction = NULL)
 }
 \arguments{
 \item{Links}{a data frame object with the links between the nodes. It should
@@ -56,6 +57,8 @@ scale for the nodes. See
 
 \item{fontSize}{numeric font size in pixels for the node text labels.}
 
+\item{fontFamily}{font family for the node text labels.}
+
 \item{linkDistance}{numeric or character string. Either numberic fixed
 distance between the links in pixels (actually arbitrary relative to the
 diagram's size). Or a JavaScript function, possibly to weight by
@@ -81,9 +84,19 @@ lines to be. Multiple formats supported (e.g. hexadecimal).}
 graph elements to be.}
 
 \item{zoom}{logical value to enable (\code{TRUE}) or disable (\code{FALSE})
-zooming}
+zooming.}
 
 \item{legend}{logical value to enable node colour legends.}
+
+\item{bounded}{logical value to enable (\code{TRUE}) or disable
+(\code{FALSE}) the bounding box limiting the graph's extent. See
+\url{http://bl.ocks.org/mbostock/1129492}.}
+
+\item{opacityNoHover}{numeric value of the opacity proportion for node labels
+text when the mouse is not hovering over them.}
+
+\item{clickAction}{character string with a JavaScript expression to evaluate
+when a node is clicked.}
 }
 \description{
 Create a D3 JavaScript force directed network graph.
@@ -111,7 +124,7 @@ forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
 library(RCurl)
 # Create URL. paste0 used purely to keep within line width.
 URL <- paste0("https://raw.githubusercontent.com/christophergandrud/",
-               "networkD3/master/JSONdata/flare.json")
+              "networkD3/master/JSONdata/miserables.json")
 MisJson <- getURL(URL)
 
 MisLinks <- JSONtoDF(jsonStr = MisJson, array = "links")
@@ -126,6 +139,30 @@ forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
 forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
              Target = "target", Value = "value", NodeID = "name",
              Group = "group", opacity = 0.4, zoom = TRUE)
+
+
+# Create a bounded graph
+forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             Group = "group", opacity = 0.4, bounded = TRUE)
+
+# Create graph with node text faintly visible when no hovering
+forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             Group = "group", opacity = 0.4, bounded = TRUE,
+             opacityNoHover = TRUE)
+
+
+# Create graph with alert pop-up when a node is clicked.  You're
+# unlikely to want to do exactly this, but you might use
+# Shiny.onInputChange() to allocate d.XXX to an element of input
+# for use in a Shiny app.
+MyClickScript <- 'alert("You clicked " + d.name + " which is in row " +
+       (d.index + 1) +  " of your original R data frame");'
+forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             Group = "group", opacity = 1, zoom = F, bounded = T,
+             clickAction = MyClickScript)
 }
 }
 \seealso{

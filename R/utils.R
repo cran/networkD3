@@ -1,10 +1,10 @@
-#' Character strings to evaluate as JavaScript
+#' Create character strings that will be evaluated as JavaScript
 #'
 #' @param ... character string to evaluate
 #'
-#' @source A direct import of Ramnath Vaidyanathan, Yihui Xie, JJ Allaire,
-#' Joe Cheng and Kenton Russell (2015). \link{htmlwidgets}: HTML Widgets for R.
-#' R package version 0.4.
+#' @source A direct import of \code{JS} from Ramnath Vaidyanathan, Yihui Xie,
+#' JJ Allaire, Joe Cheng and Kenton Russell (2015). \link{htmlwidgets}: HTML
+#' Widgets for R. R package version 0.4.
 #'
 #' @export
 
