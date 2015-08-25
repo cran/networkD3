@@ -1,5 +1,27 @@
 # All changes to networkD3 are documented here.
 
+## Version 0.2.1
+
+- Fixed an issue with `forceNetwork` on Firefox. Thanks to @agoldst.
+
+- Fixed an issue where `forceNetwork` node size would not return to 
+default after mouseover. Thanks to Pascal Pernot.
+
+## Version 0.2
+
+- Added `dendroNetwork` to create hierarchical cluster network diagrams 
+(dendrograms).
+
+- `treeNetwork` is DEPRECATED.
+
+- Placed functionality from `treeNetwork` to `radialNetwork`. The new 
+`radialNetwork` function has the same functionality, but has been renamed to be
+more accurately descriptive and avoid confusion with `dendroNetwork`.
+
+- Added `diagonalNetwork`, which creates tree network diagrams using diagonal
+instead of radial nodes.
+
+Thanks to Jonathan Owen.
 
 ## Version 0.1.8
 
@@ -11,7 +33,7 @@ Thanks to Peter Ellis.
 bounding box for the plot. See http://bl.ocks.org/mbostock/1129492.
 Thanks to Charles Sese.
 
-- Added `fontFamily` argument to `forceNetwork`, `simpleNetwork`, 
+- Added `fontFamily` argument to `forceNetwork`, `simpleNetwork`,
 `sankeyNetwork`, and `treeNetwork`. Thanks to Peter Ellis.
 
 - Added `opacityNoHover` argument to `forceNetwork` to set the opacity of node

@@ -44,20 +44,10 @@ forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
              Group = "group", opacity = 1, zoom = F, bounded = T,
              clickAction = MyClickScript)
 
-
-
 forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
              Target = "target", Value = "value", NodeID = "name",
              Group = "group", opacity = 1, zoom = F, bounded = T,
              clickAction = "alert('Ouch!')")
-
-
-
-
-
-#
-
-
 
 # With a different font, and dimensions chosen to illustrate bounded box
 forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
@@ -65,7 +55,6 @@ forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
              Group = "group", opacity = 1, zoom = F, bounded = T,
              fontFamily = "cursive",
              width = 1500, height = 300)
-
 
 # With a different font, and node text faintly visible when not hovered over
 forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
@@ -84,9 +73,6 @@ forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
              Target = "target", Value = "value", NodeID = "name",
              Nodesize = 'size', radiusCalculation = " Math.sqrt(d.nodesize)+6",
              Group = "group", opacity = 1, legend = T, bounded = T) 
-
-
-
 
 
 # sankeyNetwork
@@ -108,10 +94,32 @@ sankeyNetwork(Links = EngLinks, Nodes = EngNodes, Source = "source",
               fontSize = 12, nodeWidth = 30, fontFamily = "monospace")
 
 
-# treeNetwork
+# radialNetwork
 Flare <- RCurl::getURL("https://gist.githubusercontent.com/mbostock/4063550/raw/a05a94858375bd0ae023f6950a2b13fac5127637/flare.json")
 Flare <- rjson::fromJSON(Flare)
-treeNetwork(List = Flare, fontSize = 10, opacity = 0.9, margin=0)
+
+hc <- hclust(dist(USArrests), "ave")
+
+radialNetwork(List = Flare, fontSize = 10, opacity = 0.9, margin=0)
+radialNetwork(as.radialNetwork(hc))
 
 # and with a different font
-treeNetwork(List = Flare, fontSize = 10, opacity = 0.9, margin=0, fontFamily = "sans-serif")
+radialNetwork(List = Flare, fontSize = 10, opacity = 0.9, margin=0, fontFamily = "sans-serif")
+
+diagonalNetwork(List = Flare, fontSize = 10, opacity = 0.9, margin=0)
+diagonalNetwork(as.radialNetwork(hc), height = 700, margin = 50)
+
+
+# dendroNetwork
+hc <- hclust(dist(USArrests), "ave")
+ 
+dendroNetwork(hc, height = 600)
+dendroNetwork(hc, treeOrientation = "vertical")
+
+dendroNetwork(hc, height = 600, linkType = "diagonal")
+dendroNetwork(hc, treeOrientation = "vertical", linkType = "diagonal")
+ 
+dendroNetwork(hc, textColour = c("red", "green", "orange")[cutree(hc, 3)],
+              height = 600)
+dendroNetwork(hc, textColour = c("red", "green", "orange")[cutree(hc, 3)],
+              treeOrientation = "vertical")
