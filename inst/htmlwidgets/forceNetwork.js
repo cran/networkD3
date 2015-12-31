@@ -141,33 +141,20 @@ HTMLWidgets.widget({
       .style("opacity", options.opacityNoHover)
       .style("pointer-events", "none");
 
-    // Add the option for a bounded box
-    function nodeBoxX(d,width) {
-        if(options.bounded){
-            var dx = Math.max(nodeSize(d), Math.min(width - nodeSize(d), d.x));
-            return dx;
-        }else{
-            return d.x}
-    }
-    function nodeBoxY(d, height) {
-        if(options.bounded){
-            var dy = Math.max(nodeSize(d), Math.min(height - nodeSize(d), d.y));
-            return dy;
-        }else{
-            return d.y}
-    }
-
     function tick() {
+      node.attr("transform", function(d) {
+        if(options.bounded){ // adds bounding box
+            d.x = Math.max(nodeSize(d), Math.min(width - nodeSize(d), d.x));
+            d.y = Math.max(nodeSize(d), Math.min(height - nodeSize(d), d.y));
+        }
+        
+        return "translate(" + d.x + "," + d.y + ")"});
+        
       link
         .attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
-
-      node
-        .attr("transform", function(d) {
-          return "translate(" + nodeBoxX(d,width) + "," + nodeBoxY(d,height) + ")";
-        });
     }
 
     function mouseover() {
@@ -178,7 +165,7 @@ HTMLWidgets.widget({
         .duration(750)
         .attr("x", 13)
         .style("stroke-width", ".5px")
-        .style("font", options.clickTextSize + "px " + options.fontFamily)
+        .style("font", options.clickTextSize + "px ")
         .style("opacity", 1);
     }
 
@@ -189,7 +176,7 @@ HTMLWidgets.widget({
       d3.select(this).select("text").transition()
         .duration(1250)
         .attr("x", 0)
-        .style("font", options.fontSize + "px " + options.fontFamily) 
+        .style("font", options.fontSize + "px ") 
         .style("opacity", options.opacityNoHover);
     }
     
@@ -225,5 +212,8 @@ HTMLWidgets.widget({
           .attr('y', legendRectSize - legendSpacing)
           .text(function(d) { return d; });
     }
+    
+    // make font-family consistent across all elements
+    d3.select(el).selectAll('text').style('font-family', options.fontFamily);
   },
 });
