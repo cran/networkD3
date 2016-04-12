@@ -3,8 +3,8 @@ Type: Package
 Title: D3 JavaScript Network Graphs from R
 Description: Creates 'D3' 'JavaScript' network, tree, dendrogram, and Sankey
     graphs from 'R'.
-Version: 0.2.8
-Date: 2015-12-31
+Version: 0.2.10
+Date: 2016-04-12
 Authors@R: c(
     person("Christopher", "Gandrud", email = "christopher.gandrud@gmail.com",
     role = c("aut", "cre")),
@@ -21,13 +21,13 @@ URL: http://cran.r-project.org/package=networkD3
 BugReports: https://github.com/christophergandrud/networkD3/issues
 License: GPL (>= 3)
 Depends: R (>= 3.0.0)
-Imports: htmlwidgets (>= 0.3.2)
-Suggests: htmltools (>= 0.2.6), jsonlite
+Imports: htmlwidgets (>= 0.3.2), igraph, magrittr
+Suggests: htmltools (>= 0.2.6), jsonlite,
 Enhances: knitr, shiny
 LazyData: true
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2015-12-31 08:50:25 UTC; christophergandrud
+Packaged: 2016-04-12 06:11:31 UTC; christophergandrud
 Author: Christopher Gandrud [aut, cre],
   J.J. Allaire [aut],
   Kenton Russell [aut],
@@ -39,4 +39,4 @@ Author: Christopher Gandrud [aut, cre],
   Jennifer Rogers [ctb]
 Maintainer: Christopher Gandrud <christopher.gandrud@gmail.com>
 Repository: CRAN
-Date/Publication: 2015-12-31 11:47:33
+Date/Publication: 2016-04-12 08:59:07

@@ -1,5 +1,21 @@
 # All changes to networkD3 are documented here.
 
+## Version 0.2.10
+
+-Added the function `igraph_to_networkD3` to convert an `igraph` class object
+to a list that can be used with networkD3.
+
+- Fixed a bug where `linkColour` was not actually passed to the widget for
+`diagonalNetwork` and `radialNetwork`. Thanks to Pierre Formont.
+
+## Version 0.2.9
+
+- `forceNetwork` now allows you to supply a vector of colours to the
+`linkColour`argument. This enables the user to highlight links to specific
+nodes. Thanks to Garth Tarr. 
+
+- Minor documentation improvements.
+
 ## Version 0.2.8
 
 - Added `NodeGroup` and `LinkGroup` parameters to `sankeyNetwork` so links
