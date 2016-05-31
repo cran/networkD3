@@ -189,7 +189,13 @@ igraph_to_networkD3 <- function(g, group, what = 'both') {
     links <- as_data_frame(g, what = 'edges')
     links <- merge(links, temp_nodes, by.x = 'from', by.y = 'name')
     links <- merge(links, temp_nodes, by.x = 'to', by.y = 'name')
-    links <- links[, c('id.x', 'id.y')] %>% setNames(c('source', 'target'))
+    if (ncol(links) == 5) {
+        links <- links[, c('id.x', 'id.y', 'value')] %>% 
+                      setNames(c('source', 'target', 'value'))
+    }
+    else {
+        links <- links[, c('id.x', 'id.y')] %>% setNames(c('source', 'target'))
+    }
 
     # Output requested object
     if (what == 'both') {
@@ -200,5 +206,21 @@ igraph_to_networkD3 <- function(g, group, what = 'both') {
     }
     else if (what == 'nodes') {
       return(nodes)
+    }
+}
+
+#' Check if data is 0 indexed
+#' @keywords internal
+#' @noRd
+
+check_zero <- function(Source, Target) {
+    if (!is.factor(Source) && !is.factor(Target)) {
+        SourceTarget <- c(Source, Target)
+        if (is.numeric(SourceTarget) | is.integer(SourceTarget)) {
+            if (!(0 %in% SourceTarget)) 
+                warning(
+                    'It looks like Source/Target is not zero-indexed. This is required in JavaScript and so your plot may not render.', 
+                    call. = FALSE)
+        }
     }
 }
