@@ -1,6 +1,6 @@
-0b6122b5f4d80563ced658444c2f96a6 *DESCRIPTION
+9fd88086e5bca6cd369dc3a68eb8fa40 *DESCRIPTION
 b8a527f6683aebe15e739b6fd36eabb8 *NAMESPACE
-9fd6c65645ec1783a7939d32c4114402 *NEWS
+67aa8e2e285d9f4b7d7ed0e88a24ff1a *NEWS
 e3c45eddd2f2754287ce7a289ece234b *R/chordNetwork.R
 25ac21be2e581e0d0930027f26b5ec3f *R/data-definitions.R
 391ac7eee46598c80451697057fd7389 *R/dendroNetwork.R
@@ -8,16 +8,17 @@ e3c45eddd2f2754287ce7a289ece234b *R/chordNetwork.R
 f31399a5fc1735d9bfece9b86cceac86 *R/forceNetwork.R
 ec65f9e38b95342fad26ced969e15a82 *R/networkD3.R
 f4a50b818e621f132a02b766cec02990 *R/radialNetwork.R
-213a23ec7081c33eb0185d5437c5f87a *R/sankeyNetwork.R
+711d6bb93ecf4dc2c5cd29b8b26f9058 *R/sankeyNetwork.R
 8822336da7a9bd43b122c2119cc53c91 *R/saveNetwork.R
 edc80ebd04891b6f3223cbd8e3020abe *R/simpleNetwork.R
-a8f35fca1bf944bea458ab7cd33c30d8 *R/utils.R
-a1a38dd080df316c13ef8b69b9300b1d *README.md
+4828dcaab4d618ec83769c97bfc9f093 *R/utils.R
+7d57707a5acbcca7bb59cfd65439b80b *README.md
 711dc4574da9f5e48ee6cf3887d8dc36 *data/MisLinks.rda
 0158a9a4655c14494ce9e1e69becc34a *data/MisNodes.rda
 6cb1ca0c20009b6506a8a8f110d7ad56 *data/SchoolsJournals.rda
 9dec963fcf528c81e0b11d0966d32653 *inst/examples/examples.R
 ebb9b82e4cf810d76aa68543d1c299ba *inst/examples/examples.Rmd
+1ca1530c4ab9c2ded0ed18b9fcf68f5c *inst/examples/flex_dashboard_sankey.Rmd
 728c81134e77f223a1014d2f5ae26a17 *inst/examples/shiny/server.R
 65c0bc8ef319822574311842d1057d71 *inst/examples/shiny/ui.R
 fd4c32547fe8b4ac0dbf2cf79d104790 *inst/htmlwidgets/chordNetwork.js
@@ -32,7 +33,7 @@ b30b3f380d862b38999431667570d0a6 *inst/htmlwidgets/forceNetwork.yaml
 80f5e2cb56fd58e6cae6a750938a3d0c *inst/htmlwidgets/lib/sankey.js
 2063e40e51d84fc38698223acbd46722 *inst/htmlwidgets/radialNetwork.js
 b30b3f380d862b38999431667570d0a6 *inst/htmlwidgets/radialNetwork.yaml
-377d0c21c09fefb5350e921e17ee32db *inst/htmlwidgets/sankeyNetwork.js
+7460a76bbebc155e5a17bda3e1fc49f4 *inst/htmlwidgets/sankeyNetwork.js
 4fac0097fe56f6f2a3cb1165a962b09b *inst/htmlwidgets/sankeyNetwork.yaml
 cbce503a2a3694c4db79e2028f6a3ff3 *inst/htmlwidgets/simpleNetwork.js
 b30b3f380d862b38999431667570d0a6 *inst/htmlwidgets/simpleNetwork.yaml
@@ -49,6 +50,6 @@ b89dbbe384f2006442ef9386e4bb4c55 *man/diagonalNetwork.Rd
 7387d339754ec58a63d3a9784c55fe6f *man/networkD3-package.Rd
 373350160a27a886664ea0c145c4ddf1 *man/networkD3-shiny.Rd
 0cb409ca11d813801b10ea3fc9a36d99 *man/radialNetwork.Rd
-1d72b217f9abfa50e44431e94792391f *man/sankeyNetwork.Rd
+479f433be9d434bc7b59cc0b695c0c9d *man/sankeyNetwork.Rd
 84095fc87b3f9253ad3dd20484377a3e *man/saveNetwork.Rd
 bdb1e76189a3c1ae4b41d2470c18bc26 *man/simpleNetwork.Rd
