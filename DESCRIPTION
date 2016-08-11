@@ -3,8 +3,8 @@ Type: Package
 Title: D3 JavaScript Network Graphs from R
 Description: Creates 'D3' 'JavaScript' network, tree, dendrogram, and Sankey
     graphs from 'R'.
-Version: 0.2.12
-Date: 2016-07-03
+Version: 0.2.13
+Date: 2016-08-11
 Authors@R: c(
     person("Christopher", "Gandrud", email = "christopher.gandrud@gmail.com",
     role = c("aut", "cre")),
@@ -27,7 +27,7 @@ Enhances: knitr, shiny
 LazyData: true
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-07-03 05:37:36 UTC; christophergandrud
+Packaged: 2016-08-11 12:24:23 UTC; christophergandrud
 Author: Christopher Gandrud [aut, cre],
   J.J. Allaire [aut],
   Kenton Russell [aut],
@@ -39,4 +39,4 @@ Author: Christopher Gandrud [aut, cre],
   Jennifer Rogers [ctb]
 Maintainer: Christopher Gandrud <christopher.gandrud@gmail.com>
 Repository: CRAN
-Date/Publication: 2016-07-03 10:54:04
+Date/Publication: 2016-08-11 18:40:40
