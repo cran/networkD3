@@ -25,7 +25,7 @@
 #' @param width numeric width for the network graph's frame area in pixels.
 #' @param colourScale character string specifying the categorical colour
 #' scale for the nodes. See
-#' \url{https://github.com/mbostock/d3/wiki/Ordinal-Scales}.
+#' \url{https://github.com/d3/d3/blob/master/API.md#ordinal-scales}.
 #' @param fontSize numeric font size in pixels for the node text labels.
 #' @param fontFamily font family for the node text labels.
 #' @param linkDistance numeric or character string. Either numberic fixed
@@ -49,6 +49,7 @@
 #' @param zoom logical value to enable (\code{TRUE}) or disable (\code{FALSE})
 #' zooming.
 #' @param legend logical value to enable node colour legends.
+#' @param arrows logical value to enable directional link arrows.
 #' @param bounded logical value to enable (\code{TRUE}) or disable
 #' (\code{FALSE}) the bounding box limiting the graph's extent. See
 #' \url{http://bl.ocks.org/mbostock/1129492}.
@@ -72,6 +73,11 @@
 #'              Nodesize = "size",
 #'              radiusCalculation = "Math.sqrt(d.nodesize)+6",
 #'              Group = "group", opacity = 0.4, legend = TRUE)
+#'
+#' # Create graph directed arrows
+#' forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
+#'              Target = "target", Value = "value", NodeID = "name",
+#'              Group = "group", opacity = 0.4, arrows = TRUE)
 #'
 #' \dontrun{
 #' #### JSON Data Example
@@ -135,7 +141,7 @@
 #' @source
 #' D3.js was created by Michael Bostock. See \url{http://d3js.org/} and, more
 #' specifically for force directed networks
-#' \url{https://github.com/mbostock/d3/wiki/Force-Layout}.
+#' \url{https://github.com/d3/d3/blob/master/API.md#forces-d3-force}.
 #' @seealso \code{\link{JS}}.
 #'
 #' @export
@@ -155,11 +161,12 @@ forceNetwork <- function(Links,
                          linkDistance = 50,
                          linkWidth = JS("function(d) { return Math.sqrt(d.value); }"),
                          radiusCalculation = JS(" Math.sqrt(d.nodesize)+6"),
-                         charge = -120,
+                         charge = -30,
                          linkColour = "#666",
                          opacity = 0.6,
                          zoom = FALSE,
                          legend = FALSE,
+                         arrows = FALSE,
                          bounded = FALSE,
                          opacityNoHover = 0,
                          clickAction = NULL)
@@ -219,6 +226,7 @@ forceNetwork <- function(Links,
             opacity = opacity,
             zoom = zoom,
             legend = legend,
+            arrows = arrows,
             nodesize = nodesize,
             radiusCalculation = radiusCalculation,
             bounded = bounded,
