@@ -4,15 +4,31 @@
 \alias{sankeyNetwork}
 \title{Create a D3 JavaScript Sankey diagram}
 \source{
-D3.js was created by Michael Bostock. See \url{http://d3js.org/} and, more
-specifically for Sankey diagrams \url{http://bost.ocks.org/mike/sankey/}.
+D3.js was created by Michael Bostock. See \url{https://d3js.org/} and, more
+specifically for Sankey diagrams \url{https://bost.ocks.org/mike/sankey/}.
 }
 \usage{
-sankeyNetwork(Links, Nodes, Source, Target, Value, NodeID, NodeGroup = NodeID,
-  LinkGroup = NULL, units = "",
-  colourScale = JS("d3.scaleOrdinal(d3.schemeCategory20);"), fontSize = 7,
-  fontFamily = NULL, nodeWidth = 15, nodePadding = 10, margin = NULL,
-  height = NULL, width = NULL, iterations = 32, sinksRight = TRUE)
+sankeyNetwork(
+  Links,
+  Nodes,
+  Source,
+  Target,
+  Value,
+  NodeID,
+  NodeGroup = NodeID,
+  LinkGroup = NULL,
+  units = "",
+  colourScale = JS("d3.scaleOrdinal(d3.schemeCategory20);"),
+  fontSize = 7,
+  fontFamily = NULL,
+  nodeWidth = 15,
+  nodePadding = 10,
+  margin = NULL,
+  height = NULL,
+  width = NULL,
+  iterations = 32,
+  sinksRight = TRUE
+)
 }
 \arguments{
 \item{Links}{a data frame object with the links between the nodes. It should
@@ -80,7 +96,7 @@ Create a D3 JavaScript Sankey diagram
 }
 \examples{
 \dontrun{
-# Recreate Bostock Sankey diagram: http://bost.ocks.org/mike/sankey/
+# Recreate Bostock Sankey diagram: https://bost.ocks.org/mike/sankey/
 # Load energy projection data
 URL <- paste0('https://cdn.rawgit.com/christophergandrud/networkD3/',
               'master/JSONdata/energy.json')

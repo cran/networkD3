@@ -4,9 +4,11 @@
 \name{MisLinks}
 \alias{MisLinks}
 \title{Les Miserables character links}
-\format{A data set with 254 observations of 3 variables.}
+\format{
+A data set with 254 observations of 3 variables.
+}
 \source{
-See Mike Bostock \url{http://bl.ocks.org/mbostock/4062045}.
+See Mike Bostock \url{https://bl.ocks.org/mbostock/4062045}.
 }
 \usage{
 MisLinks

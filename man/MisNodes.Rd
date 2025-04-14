@@ -4,10 +4,12 @@
 \name{MisNodes}
 \alias{MisNodes}
 \title{Les Miserables character nodes}
-\format{A data set with 77 observations of 2 variables, plus made up
-node size variable.}
+\format{
+A data set with 77 observations of 2 variables, plus made up
+node size variable.
+}
 \source{
-See Mike Bostock \url{http://bl.ocks.org/mbostock/4062045}.
+See Mike Bostock \url{https://bl.ocks.org/mbostock/4062045}.
 }
 \usage{
 MisNodes
